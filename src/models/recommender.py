@@ -53,7 +53,8 @@ class HybridRecommender:
             # Cold start: fall back to content-based on context
             scores = self._content_scores(context or {})
 
-        top_k_idx = np.argpartition(-scores, k)[:k]
+        k = min(k, len(scores))
+        top_k_idx = np.argpartition(-scores, min(k, len(scores) - 1))[:k]
         top_k_idx = top_k_idx[np.argsort(-scores[top_k_idx])]
 
         return [
