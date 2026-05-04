@@ -27,7 +27,7 @@ jobs:
         run: ruff check src/ tests/
 
       - name: Format check with Black
-        run: black --check --diff src/ tests/
+        run: black --check src/ tests/
         continue-on-error: true
 
       - name: Type check with mypy
@@ -35,13 +35,7 @@ jobs:
         continue-on-error: true
 
       - name: Run tests
-        run: pytest tests/ -v --cov=src --cov-report=xml
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage.xml
-        continue-on-error: true
+        run: pytest tests/ -v
 
   docker-build:
     runs-on: ubuntu-latest
